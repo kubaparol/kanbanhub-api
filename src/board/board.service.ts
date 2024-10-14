@@ -15,7 +15,10 @@ export class BoardService {
   }
 
   async findOne(id: string) {
-    return this.databaseService.board.findUnique({ where: { id } });
+    return this.databaseService.board.findUnique({
+      where: { id },
+      include: { columns: true },
+    });
   }
 
   async update(id: string, updateBoardDto: Prisma.BoardUpdateInput) {
@@ -26,6 +29,7 @@ export class BoardService {
   }
 
   async remove(id: string) {
+    await this.databaseService.column.deleteMany({ where: { boardId: id } });
     return this.databaseService.board.delete({ where: { id } });
   }
 }
