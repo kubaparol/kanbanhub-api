@@ -6,26 +6,30 @@ import { DatabaseService } from 'src/database/database.service';
 export class ColumnService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  create(createColumnDto: Prisma.ColumnCreateInput) {
-    return this.databaseService.column.create({ data: createColumnDto });
+  async create(createColumnDto: Prisma.ColumnCreateInput) {
+    return this.databaseService.column.create({
+      data: createColumnDto,
+      include: { tasks: true },
+    });
   }
 
-  findAll() {
-    return this.databaseService.column.findMany();
+  async findAll() {
+    return this.databaseService.column.findMany({ include: { tasks: true } });
   }
 
-  findOne(id: string) {
+  async findOne(id: string) {
     return this.databaseService.column.findUnique({ where: { id } });
   }
 
-  update(id: string, updateColumnDto: Prisma.ColumnUpdateInput) {
+  async update(id: string, updateColumnDto: Prisma.ColumnUpdateInput) {
     return this.databaseService.column.update({
       where: { id },
       data: updateColumnDto,
     });
   }
 
-  remove(id: string) {
+  async remove(id: string) {
+    await this.databaseService.task.deleteMany({ where: { columnId: id } });
     return this.databaseService.column.delete({ where: { id } });
   }
 }

@@ -17,7 +17,11 @@ export class BoardService {
   async findOne(id: string) {
     return this.databaseService.board.findUnique({
       where: { id },
-      include: { columns: true },
+      include: {
+        columns: {
+          include: { tasks: true },
+        },
+      },
     });
   }
 
@@ -29,7 +33,20 @@ export class BoardService {
   }
 
   async remove(id: string) {
+    const columns = await this.databaseService.column.findMany({
+      where: { boardId: id },
+    });
+
+    const columnIds = columns.map((column) => column.id);
+
+    if (columnIds.length > 0) {
+      await this.databaseService.task.deleteMany({
+        where: { columnId: { in: columnIds } },
+      });
+    }
+
     await this.databaseService.column.deleteMany({ where: { boardId: id } });
+
     return this.databaseService.board.delete({ where: { id } });
   }
 }
