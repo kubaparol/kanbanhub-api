@@ -16,6 +16,7 @@ datasource db {
 model Board {
   id          String      @id @default(uuid())
   name        String      @unique
+  description String
   columns     Column[]
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
@@ -33,7 +34,8 @@ model Column {
 
 model Task {
   id          String      @id @default(uuid())
-  name       String
+  name        String
+  order       Int         
   columnId    String
   column      Column      @relation(fields: [columnId], references: [id])
   createdAt   DateTime    @default(now())

@@ -7,7 +7,10 @@ export class BoardService {
   constructor(private readonly databaseService: DatabaseService) {}
 
   async create(createBoardDto: Prisma.BoardCreateInput) {
-    return this.databaseService.board.create({ data: createBoardDto });
+    return this.databaseService.board.create({
+      data: createBoardDto,
+      include: { columns: true },
+    });
   }
 
   async findAll() {
@@ -19,7 +22,7 @@ export class BoardService {
       where: { id },
       include: {
         columns: {
-          include: { tasks: true },
+          include: { tasks: { orderBy: { order: 'asc' } } },
         },
       },
     });
