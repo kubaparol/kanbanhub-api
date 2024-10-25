@@ -38,9 +38,23 @@ export class TaskService {
       throw new Error('Task not found');
     }
 
-    const newOrder = (updateTaskDto.order || task.order) as number;
+    let newOrder = (updateTaskDto.order || task.order) as number;
 
-    if (newOrder > task.order) {
+    const isColumnChanged =
+      // @ts-expect-error No columnId in Prisma types
+      updateTaskDto.columnId && updateTaskDto.columnId !== task.columnId;
+
+    if (isColumnChanged) {
+      const lastOrderInNewColumn = await this.databaseService.task.findFirst({
+        // @ts-expect-error No columnId in Prisma types
+        where: { columnId: updateTaskDto.columnId },
+        orderBy: { order: 'desc' },
+      });
+
+      newOrder = (lastOrderInNewColumn?.order || 0) + 1;
+    }
+
+    if (newOrder > task.order && !isColumnChanged) {
       await this.databaseService.task.updateMany({
         where: {
           columnId: task.columnId,
@@ -55,7 +69,7 @@ export class TaskService {
           },
         },
       });
-    } else if (newOrder < task.order) {
+    } else if (newOrder < task.order && !isColumnChanged) {
       await this.databaseService.task.updateMany({
         where: {
           columnId: task.columnId,
