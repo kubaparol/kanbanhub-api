@@ -6,7 +6,7 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
 
-  app.enableCors({ origin: ['http://localhost:3000'] });
+  app.enableCors({ origin: ['https://kanbanhub-app.vercel.app/'] });
 
   await app.listen(3001);
 }
