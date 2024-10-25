@@ -1,73 +1,96 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# KanbanHub API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+  <div align="center">
+    <img src="https://img.shields.io/badge/Node.js-5FA04E?logo=nodedotjs&logoColor=fff&style=flat" alt="nodejs" />
+    <img src="https://img.shields.io/badge/NestJS-E0234E?logo=nestjs&logoColor=fff&style=flat" alt="nextjs" />
+    <img src="https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff&style=flat" alt="typescript" />
+    <img src="https://img.shields.io/badge/Prisma-2D3748?logo=prisma&logoColor=fff&style=flat" alt="prisma" />
+  </div>
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+&nbsp;
 
-## Description
+<div align="center">
+  <a href="https://github.com/kubaparol/cookly-app">
+    <img src="assets/logo-white.png" alt="Logo" width="254" height="52">
+  </a>
+</div>
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+&nbsp;
 
-## Installation
+## Table of Contents
+
+  <ol>
+    <li>
+      <a href="#overview">Overview</a>
+      <ul>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#tech-stack">Tech Stack</a></li>
+      </ul>
+        <li><a href="#getting-started">Getting Started</a></li>
+    </li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+
+## Overview
+
+**KanbanHub API** is the backend service for the [KanbanHub App](https://github.com/kubaparol/kanbanhub-app), built with NestJS. It provides a RESTful API to manage kanban boards, columns and tasks, enabling full CRUD functionality for each. This backend serves as the core engine for data management, allowing the frontend application to interact seamlessly with boards, columns and tasks.
+
+### Features
+
+- **Board Module**: Manages board-level actions, including creation, updating, and deletion.
+- **Column Module**: Allows for adding, editing, and deleting columns within boards.
+- **Task Module**: Supports CRUD actions for tasks within columns.
+- **Database Integration**: Uses Prisma as the ORM for efficient database interaction and management.
+
+### Tech Stack
+
+- [NestJS](https://nestjs.com/) for the server framework
+- [Prisma](https://www.prisma.io/) for database ORM
+- [TypeScript](https://www.typescriptlang.org/) for static typing
+
+## Getting Started
+
+To set up **KanbanHub API** locally:
+
+1. Clone the repository:
 
 ```bash
-$ npm install
+git clone https://github.com/kubaparol/kanbanhub-api.git
 ```
 
-## Running the app
+2. Install the dependencies:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm i
 ```
 
-## Test
+3. Copy the `.env.example` file, rename it to `.env` and fill required credentials:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+cp .env.example .env
 ```
 
-## Support
+4. Set up the database: Initialize Prisma and apply migrations to set up the database structure:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+npx prisma migrate dev
+```
 
-## Stay in touch
+5. Start the server:
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```bash
+npm run start:dev
+```
 
-## License
+6. Api is ready to go:
 
-Nest is [MIT licensed](LICENSE).
+```
+http://localhost:3001/
+```
+
+## Contact
+
+Feel free to contact me! You can find me here:
+
+- [LinkedIn](https://www.linkedin.com/in/jakub-parol/)
+- [GitHub](https://github.com/kubaparol)
